@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Shreeya/Logs/AssetImportWorker2.log.meta
 guid: d6816d2d86a0bd641938e3254d78bab5
+========
+guid: 9c70562ff3c444727a4e6509eafc74a0
+>>>>>>>> ee4e80cda842d32770c372973e0c2ab937868dad:Assets/Background/a-dark-cave-background-vector-23083650.webp.meta
+=======
+guid: d14401d12f62e4a6399adcb6966ade69
+>>>>>>> ee4e80cda842d32770c372973e0c2ab937868dad
 DefaultImporter:
   externalObjects: {}
   userData: 
