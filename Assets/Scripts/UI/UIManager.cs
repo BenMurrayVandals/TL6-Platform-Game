@@ -3,21 +3,34 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [Header ("Game Over")]
+    [Header("Game Over")]
+    [SerializeField] private GameObject menuBackground;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private AudioClip gameOverSound;
+
+
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private AudioClip winSound;
+
 
     [Header("Pause")]
     [SerializeField] private GameObject pauseScreen;
 
+    private void closeAllMenus()
+    {
+        menuBackground.SetActive(false);
+        gameOverScreen.SetActive(false);
+        winScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+    }
+
     private void Awake()
     {
-        gameOverScreen.SetActive(false);
-        pauseScreen.SetActive(false);
+        closeAllMenus();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !menuBackground.activeSelf)
         {
             //If pause screen already active unpause and viceversa
             PauseGame(!pauseScreen.activeInHierarchy);
@@ -28,6 +41,7 @@ public class UIManager : MonoBehaviour
     //Activate game over screen
     public void GameOver()
     {
+        menuBackground.SetActive(true);
         gameOverScreen.SetActive(true);
         SoundManager.instance.PlaySound(gameOverSound);
     }
@@ -36,12 +50,7 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    //Main Menu
-    public void MainMenu()
-    {
-        SceneManager.LoadScene(0);
+        closeAllMenus();
     }
 
     //Quit game/exit play mode if in Editor
@@ -55,10 +64,20 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region Win
+    public void Win()
+    {
+        menuBackground.SetActive(true);
+        winScreen.SetActive(true);
+        SoundManager.instance.PlaySound(winSound);
+    }
+    #endregion
+
     #region Pause
     public void PauseGame(bool status)
     {
         //If status == true pause | if status == false unpause
+        menuBackground.SetActive(status);
         pauseScreen.SetActive(status);
 
         //When pause status is true change timescale to 0 (time stops)
